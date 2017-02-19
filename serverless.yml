@@ -84,6 +84,7 @@ resources:
     ProxyMethod:
       Type: AWS::ApiGateway::Method
       Properties:
+        AuthorizationType: NONE
         ResourceId:
           Ref: ProxyResource
         RestApiId:
