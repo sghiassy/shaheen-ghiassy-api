@@ -22,6 +22,7 @@ provider:
   runtime: nodejs4.3
   stage: prod
   region: us-west-2
+  profile: shaheen-ghiassy-api # used to lookup credentials in ~/.aws/credentials
 
 
 
