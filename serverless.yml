@@ -60,7 +60,7 @@ functions:
         method: get
         cors: false
   form:
-    handlers: src/controllers/form.incoming_request
+    handlers: src/controllers/form.incomingRequest
     description: Form processor for shaheenghiassy.com
     events:
     - http:

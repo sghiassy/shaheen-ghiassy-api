@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports.incoming_request = (event, context, callback) => {
+module.exports.incomingRequest = (event, context, callback) => {
   const response = {
     statusCode: 200,
     body: JSON.stringify({
