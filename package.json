@@ -9,5 +9,11 @@
     "deploy:dev": "serverless deploy --stage dev",
     "deploy:prod": "serverless deploy --stage prod",
     "test": "serverless invoke local --function beers"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.16.0",
+    "html-entities": "^1.2.0",
+    "lodash": "^4.17.4",
+    "qs": "^6.3.1"
   }
 }
