@@ -44,10 +44,35 @@ functions:
         method: get
         cors: false
   form:
-    handler: src/controllers/form.incoming_request
+    handler: src/controllers/form.submit
     description: Form processor for shaheenghiassy.com
     events:
     - http:
         path: form # path in the url
         method: post
         cors: true
+
+
+
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - "sns:Publish"
+    Resource: "arn:aws:sns:*:*:${self:custom.conf.topicName}"
+
+
+
+
+resources:
+  Resources:
+    MailQueue:
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: "Serverless Form Mail"
+        TopicName: ${self:custom.conf.topicName}
+        Subscription:
+          - Endpoint: ${self:custom.conf.mailTo}
+            Protocol: "email"
+
+custom:
+  conf: ${file(config/form.json)}

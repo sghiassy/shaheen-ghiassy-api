@@ -1,0 +1,9 @@
+{
+  "formKeys": [
+    "name",
+    "email",
+    "comments"
+  ],
+  "mailTo": "shaheen.ghiassy@gmail.com",
+  "topicName": "SlsFormMailTopic"
+}
