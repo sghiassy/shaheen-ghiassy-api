@@ -1,0 +1,11 @@
+{
+  "name": "shaheen-ghiassy-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {},
+  "author": "Shaheen Ghiassy",
+  "license": "MIT",
+  "scripts": {
+    "test": "serverless invoke local --function hello"
+  }
+}
