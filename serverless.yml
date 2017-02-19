@@ -13,8 +13,6 @@
 
 service: api
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
 frameworkVersion: "=1.6.1"
 
 provider:
@@ -24,8 +22,11 @@ provider:
   region: us-west-2
   profile: shaheen-ghiassy-api # used to lookup credentials in ~/.aws/credentials
 
-
-
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - "sns:Publish"
+    Resource: "arn:aws:sns:*:*:${self:custom.conf.topicName}"
 
 functions:
   beers:
@@ -51,17 +52,6 @@ functions:
         path: form # path in the url
         method: post
         cors: true
-
-
-
-iamRoleStatements:
-  - Effect: Allow
-    Action:
-      - "sns:Publish"
-    Resource: "arn:aws:sns:*:*:${self:custom.conf.topicName}"
-
-
-
 
 resources:
   Resources:

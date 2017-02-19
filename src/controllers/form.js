@@ -36,7 +36,7 @@ module.exports.submit = (event, context, callback) => {
 
   if (validMessage) {
     console.log('Message is valid');
-    console.log('Publishing message', message);
+    console.log('Publishing message:\n', message);
     sns.publish({
       Message: message,
       Subject: MAIL_TITLE,
