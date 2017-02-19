@@ -14,7 +14,7 @@ const BEERS = [{
     image: "/static/images/Chocolate-Stout.png"
 }];
 
-var beersPrice = [{
+var BEERS_PRICE = [{
     id: "0",
     name:"Double Dead Guy",
     vendorPrice: "12",
@@ -31,7 +31,7 @@ var beersPrice = [{
 }];
 
 
-module.exports.get = (event, context, callback) => {
+module.exports.list = (event, context, callback) => {
   const response = {
     statusCode: 200,
     body: JSON.stringify(BEERS),

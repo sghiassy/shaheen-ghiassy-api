@@ -29,7 +29,7 @@ provider:
 
 functions:
   beers:
-    handler: src/controllers/beers.get
+    handler: src/controllers/beers.list
     description: An old endoint I had about beers
     events:
     - http:
