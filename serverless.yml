@@ -20,35 +20,11 @@ frameworkVersion: "=1.6.1"
 provider:
   name: aws
   runtime: nodejs4.3
+  stage: prod
   region: us-west-2
 
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
 
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
 
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
 
 functions:
   hello:
@@ -67,34 +43,3 @@ functions:
         path: form # path in the url
         method: post
         cors: true
-
-
-resources:
-  Resources:
-    ProxyResource:
-      Type: AWS::ApiGateway::Resource
-      Properties:
-        ParentId:
-          Fn::GetAtt:
-            - ApiGatewayRestApi # our default Rest API logical ID
-            - RootResourceId
-        PathPart: lambda # the endpoint in your API that is set as proxy
-        RestApiId:
-          Ref: ApiGatewayRestApi
-    ProxyMethod:
-      Type: AWS::ApiGateway::Method
-      Properties:
-        AuthorizationType: NONE
-        ResourceId:
-          Ref: ProxyResource
-        RestApiId:
-          Ref: ApiGatewayRestApi
-        HttpMethod: GET # the method of your proxy. Is it GET or POST or ... ?
-        MethodResponses:
-          - StatusCode: 200
-        Integration:
-          IntegrationHttpMethod: POST
-          Type: HTTP
-          Uri: http://api.shaheenghiassy.com # the URL you want to set a proxy to
-          IntegrationResponses:
-            - StatusCode: 200
