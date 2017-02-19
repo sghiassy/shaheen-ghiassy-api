@@ -35,12 +35,19 @@ module.exports.submit = (event, context, callback) => {
   message += "\n\n-----\n\n";
 
   if (validMessage) {
+    console.log('Message is valid');
+    console.log('Publishing message', message);
     sns.publish({
       Message: message,
       Subject: MAIL_TITLE,
       TopicArn: TOPIC_ARN
-    }, done);
+    }, function(err, result) {
+      console.log('SNS Publish completed', err, result);
+      done(err, result);
+    });
   } else {
-    done();
+    console.log('The message is NOT valid');
+    console.log('Discarding message', message);
+    done(true, 'The message is NOT valid');
   }
 };
