@@ -5,15 +5,17 @@ const sns = new AWS.SNS();
 const qs = require('qs');
 const Entities = require('html-entities').XmlEntities;
 const entities = new Entities();
-const conf = require('../../config/form.json');
+const CONF = require('../../config/form.json');
+
+const TOPIC_NAME = CONF['topicName'];
+const FORM_KEYS = CONF['formKeys'];
+const REGION = 'us-west-2';
+const ACCOUNT_ID = '111582575083';
+const TOPIC_ARN = 'arn:aws:sns:' + REGION + ':' + ACCOUNT_ID + ':' + TOPIC_NAME;
+const MAIL_TITLE = "[Contact Form Submission] - " + new Date();
 
 module.exports.submit = (event, context, callback) => {
-  console.log('The Context is', context);
-  const functionArnCols = context.invokedFunctionArn.split(':');
-  const region = functionArnCols[3];
-  const accountId = functionArnCols[4];
-  const topicArn = 'arn:aws:sns:' + region + ':' + accountId + ':' + topicName;
-
+  // create callback
   const done = (err, result) => callback(null, {
     statusCode: err ? '500' : '200',
     body: JSON.stringify({'status':err ? 'bad': 'roger'}),
@@ -27,7 +29,7 @@ module.exports.submit = (event, context, callback) => {
   var message = "";
   var validMessage = true;
 
-  formKeys.forEach(function(val, i) {
+  FORM_KEYS.forEach(function(val, i) {
     if (obj[val] === undefined) {
       validMessage = false;
     }
@@ -40,7 +42,7 @@ module.exports.submit = (event, context, callback) => {
     sns.publish({
       Message: message,
       Subject: MAIL_TITLE,
-      TopicArn: topicArn
+      TopicArn: TOPIC_ARN
     }, done);
   } else {
     done();
