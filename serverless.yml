@@ -56,7 +56,7 @@ functions:
     description: A simple endpoint primarily used just to make sure the API service is working
     events:
     - http:
-        path: / # path in the url
+        path: heartbeat # path in the url
         method: get
         cors: false
   form:
