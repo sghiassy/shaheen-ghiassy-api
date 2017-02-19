@@ -6,12 +6,8 @@ const qs = require('qs');
 const Entities = require('html-entities').XmlEntities;
 const entities = new Entities();
 const CONF = require('../../config/form.json');
-
-const TOPIC_NAME = CONF['topicName'];
 const FORM_KEYS = CONF['formKeys'];
-const REGION = 'us-west-2';
-const ACCOUNT_ID = '111582575083';
-const TOPIC_ARN = 'arn:aws:sns:' + REGION + ':' + ACCOUNT_ID + ':' + TOPIC_NAME;
+const TOPIC_ARN = 'arn:aws:sns:us-west-2:111582575083:SlsFormMailTopic';
 const MAIL_TITLE = "[Contact Form Submission] - " + new Date();
 
 module.exports.submit = (event, context, callback) => {
