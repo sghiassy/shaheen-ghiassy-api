@@ -6,6 +6,7 @@
   "author": "Shaheen Ghiassy",
   "license": "MIT",
   "scripts": {
+    "deploy:prod": "serverless deploy",
     "test": "serverless invoke local --function hello"
   }
 }

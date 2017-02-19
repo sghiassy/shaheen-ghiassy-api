@@ -52,7 +52,7 @@ provider:
 
 functions:
   hello:
-    handler: src/controllers/handler.hello
+    handler: src/controllers/hello.hello
     description: A simple endpoint primarily used just to make sure the API service is working
     events:
     - http:
