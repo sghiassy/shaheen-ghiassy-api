@@ -8,6 +8,7 @@ const entities = new Entities();
 const conf = require('../../config/form.json');
 
 module.exports.submit = (event, context, callback) => {
+  console.log(context);
   const functionArnCols = context.invokedFunctionArn.split(':');
   const region = functionArnCols[3];
   const accountId = functionArnCols[4];
