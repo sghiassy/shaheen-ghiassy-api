@@ -8,6 +8,6 @@
   "scripts": {
     "deploy:dev": "serverless deploy --stage dev",
     "deploy:prod": "serverless deploy --stage prod",
-    "test": "serverless invoke local --function hello"
+    "test": "serverless invoke local --function beers"
   }
 }
