@@ -19,27 +19,26 @@ const HEADERS = {
   "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
 };
 
-function format_email(dictionary, message) {
-  message = "\n";
+function format_email(dictionary) {
+  var message = "\n";
 
   FORM_KEYS.forEach(function(val, i) {
     if (dictionary[val] === undefined) {
-      return false;
+      console.log('Message is deemed invalid: ', message);
+      message = false;
+      return message;
     } else {
       message += val.toUpperCase() + "\n" + entities.decode("" + dictionary[val]) + "\n\n";
     }
   });
 
   message += "\n\n-----\n\n";
-  return true;
+  return message;
 }
 
 module.exports.submit = (event, context, callback) => {
   const accountId = _.get(context, ".invokedFunctionArn.split(':')[4]", DUMMY_ACCOUNT_ID);
   const TOPIC_ARN = 'arn:aws:sns:' + REGION + ':' + accountId + ':' + TOPIC_NAME;
-
-  var message = "";
-  const isValidMessage = format_email(qs.parse(event.body), message);
 
   // create callback
   const done = (err, result) => {
@@ -50,21 +49,20 @@ module.exports.submit = (event, context, callback) => {
     });
   };
 
+  const message = format_email(qs.parse(event.body));
 
-  if (isValidMessage) {
+  if (message) {
     console.log('Message is valid');
     console.log('Publishing message:\n', message);
     sns.publish({
       Message: message,
       Subject: MAIL_TITLE,
       TopicArn: TOPIC_ARN
-    }, function(err, result) {
+    }, (err, result) => {
       console.log('SNS Publish completed', err, result);
       done(err, result);
     });
   } else {
-    console.log('The message is NOT valid');
-    console.log('Discarding message', message);
     done(true, 'The message is NOT valid');
   }
 };
