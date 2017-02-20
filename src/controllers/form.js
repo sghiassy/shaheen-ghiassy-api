@@ -35,7 +35,7 @@ function format_email(dictionary, message) {
 }
 
 module.exports.submit = (event, context, callback) => {
-  const accountId = _.get(context, '.invokedFunctionArn.split(':')[4]', DUMMY_ACCOUNT_ID);
+  const accountId = _.get(context, ".invokedFunctionArn.split(':')[4]", DUMMY_ACCOUNT_ID);
   const TOPIC_ARN = 'arn:aws:sns:' + REGION + ':' + accountId + ':' + TOPIC_NAME;
 
   var message = "";
