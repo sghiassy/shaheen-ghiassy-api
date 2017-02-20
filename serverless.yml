@@ -19,14 +19,8 @@ provider:
   name: aws
   runtime: nodejs4.3
   stage: prod
-  region: us-west-2
+  region: "${self:custom.aws.region}"
   profile: shaheen-ghiassy-api # used to lookup credentials in ~/.aws/credentials
-
-iamRoleStatements:
-  - Effect: Allow
-    Action:
-      - "sns:Publish"
-    Resource: "arn:aws:sns:*:*:${self:custom.conf.topicName}"
 
 functions:
   beers:
@@ -59,10 +53,17 @@ resources:
       Type: AWS::SNS::Topic
       Properties:
         DisplayName: "Serverless Form Mail"
-        TopicName: ${self:custom.conf.topicName}
+        TopicName: ${self:custom.form.topicName}
         Subscription:
-          - Endpoint: ${self:custom.conf.mailTo}
+          - Endpoint: ${self:custom.form.mailTo}
             Protocol: "email"
 
+iamRoleStatements:
+  - Effect: Allow
+    Action:
+      - "sns:Publish"
+    Resource: "arn:aws:sns:*:*:${self:custom.form.topicName}"
+
 custom:
-  conf: ${file(config/form.json)}
+  form: ${file(config/form.json)}
+  aws: ${file(config/aws.json)}
